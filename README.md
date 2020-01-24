@@ -1,1 +1,2 @@
 # APIs Project
+An example Django web app, originally built from the [Django Tutorial in Visual Studio Code](https://code.visualstudio.com/docs/python/tutorial-django) and later a REST API tutorial. It is mostly used to test deployment configurations on MS Azure.
