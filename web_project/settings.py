@@ -26,8 +26,7 @@ SECRET_KEY = '5#u3ez*jerrkoe^*u)$qq@8q(uxir%1+8+g318)l!frd=n53o='
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'apistest2.azurewebsites.net',
+    os.environ['APIS_SERVER_ADDRESS'],
 ]
 
 # Application definition
@@ -79,8 +78,8 @@ WSGI_APPLICATION = 'web_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': os.environ['APIS_DB_ENGINE'],
+        'NAME': os.path.join(BASE_DIR, os.environ['APIS_DB_NAME']),
     }
 }
 
