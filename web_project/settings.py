@@ -80,6 +80,10 @@ DATABASES = {
     'default': {
         'ENGINE': os.environ['APIS_DB_ENGINE'],
         'NAME': os.path.join(BASE_DIR, os.environ['APIS_DB_NAME']),
+        'USER': os.environ.get('APIS_DB_USER', ''),
+        'PASSWORD': os.environ.get('APIS_DB_PASSWORD', ''),
+        'HOST': os.environ.get('APIS_DB_HOST', ''),
+        'APIS_DB_PORT': os.environ.get('DATABASE_PORT', ''),
     }
 }
 
