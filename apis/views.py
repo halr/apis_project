@@ -50,7 +50,9 @@ def log_message(request):
     if request.method == "POST":
         if form.is_valid():
             message = form.save(commit=False)
-            message.log_date = datetime.now()
+            message.log_date = datetime.now() # add TimeZone support
+            # RuntimeWarning: DateTimeField LogMessage.log_date 
+            # received a naive datetime (2020-05-27 22:47:32.945242) while time zone support is active.
             message.save()
             return redirect("home")
     else:

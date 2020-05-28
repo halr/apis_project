@@ -79,7 +79,8 @@ WSGI_APPLICATION = 'web_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': os.environ['APIS_DB_ENGINE'],
-        'NAME': os.path.join(BASE_DIR, os.environ['APIS_DB_NAME']),
+        #'NAME': os.path.join(BASE_DIR, os.environ['APIS_DB_NAME']),
+        'NAME': os.environ.get('APIS_DB_NAME', os.path.join(BASE_DIR,'db.sqlite3')),
         'USER': os.environ.get('APIS_DB_USER', ''),
         'PASSWORD': os.environ.get('APIS_DB_PASSWORD', ''),
         'HOST': os.environ.get('APIS_DB_HOST', ''),
