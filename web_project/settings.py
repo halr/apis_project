@@ -23,10 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY', '5#u3ez*jerrkoe^*u)$qq@8q(uxir%1+8+g318)l!frd=n53o=')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', False)
+DEBUG = os.environ.get('DEBUG', True)
 
 ALLOWED_HOSTS = [
-    os.environ.get('APIS_SERVER_ADDRESS', '127.0.0.1'),
+    os.environ.get('APIS_SERVER_ADDRESS', 'localhost'),
 ]
 
 # Application definition
