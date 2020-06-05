@@ -20,13 +20,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '5#u3ez*jerrkoe^*u)$qq@8q(uxir%1+8+g318)l!frd=n53o='
+SECRET_KEY = os.environ.get('SECRET_KEY', '5#u3ez*jerrkoe^*u)$qq@8q(uxir%1+8+g318)l!frd=n53o=')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = [
-    os.environ['APIS_SERVER_ADDRESS'],
+    os.environ.get('APIS_SERVER_ADDRESS', '127.0.0.1'),
 ]
 
 # Application definition
@@ -76,17 +76,29 @@ WSGI_APPLICATION = 'web_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': os.environ['APIS_DB_ENGINE'],
-        #'NAME': os.path.join(BASE_DIR, os.environ['APIS_DB_NAME']),
-        'NAME': os.environ.get('APIS_DB_NAME', os.path.join(BASE_DIR,'db.sqlite3')),
-        'USER': os.environ.get('APIS_DB_USER', ''),
-        'PASSWORD': os.environ.get('APIS_DB_PASSWORD', ''),
-        'HOST': os.environ.get('APIS_DB_HOST', ''),
-        'APIS_DB_PORT': os.environ.get('DATABASE_PORT', ''),
+if 'APIS_DB_ENGINE' in os.environ.keys():
+    # Staging or production database
+    DATABASES = {
+        'default': {
+            'ENGINE': os.environ['APIS_DB_ENGINE'],
+            'NAME': os.environ['APIS_DB_NAME'],
+            'USER': os.environ['APIS_DB_USER'],
+            'PASSWORD': os.environ['APIS_DB_PASSWORD'],
+            'HOST': os.environ['APIS_DB_HOST'],
+            'PORT': '5432',
+            'OPTIONS': {
+                'sslmode': 'require',
+            },
+        }
     }
-}
+else:
+    # development database
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 
 # Password validation
