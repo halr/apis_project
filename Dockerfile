@@ -25,4 +25,7 @@ ENV APIS_SERVER_ADDRESS apistest5.azurewebsites.net
 
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
 # File wsgi.py was not found in subfolder:apis_project. Please enter the Python path to wsgi file.
+# If your project does not follow Django's default project structure 
+# (that is, a workspace folder and a wsgi.py file within a subfolder named the same as the workspace) 
+# you must overwrite the Gunicorn entry point in the Dockerfile to locate the correct wsgi.py file.
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "web_project.wsgi"]
