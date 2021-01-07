@@ -1,8 +1,8 @@
 import re
-from datetime import datetime
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.utils import timezone
 from django.views.generic import ListView
 from rest_framework import generics
 
@@ -33,7 +33,7 @@ def hello_there(request, name):
         'apis/hello_there.html',
         {
             'name': name,
-            'date': datetime.now()
+            'date': timezone.now()
         }
     )
 
@@ -50,9 +50,7 @@ def log_message(request):
     if request.method == "POST":
         if form.is_valid():
             message = form.save(commit=False)
-            message.log_date = datetime.now() # add TimeZone support
-            # RuntimeWarning: DateTimeField LogMessage.log_date 
-            # received a naive datetime (2020-05-27 22:47:32.945242) while time zone support is active.
+            message.log_date = timezone.now() # add TimeZone support
             message.save()
             return redirect("home")
     else:
